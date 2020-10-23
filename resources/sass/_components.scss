@@ -1,0 +1,84 @@
+.link {
+    @apply text-primary;
+}
+
+.heading {
+    @apply text-3xl font-bold;
+
+    &.sub {
+        @apply text-sm font-medium text-gray-600;
+    }
+}
+
+.box {
+    @apply bg-white rounded shadow-sm p-6 my-6;
+
+    &.no-shadow {
+        @apply shadow-none;
+    }
+}
+
+.alert {
+    @apply text-xs p-2 rounded;
+    &.error {
+        @apply bg-red-300 text-red-500;
+    }
+}
+
+.button {
+    @apply text-sm font-bold rounded p-2;
+
+    &.primary {
+        @apply bg-primary text-white;
+
+        &:hover {
+            @apply shadow-lg;
+        }
+    }
+}
+
+.form {
+    @apply grid gap-4;
+}
+
+.label {
+    @apply block w-full font-semibold text-gray-700 mb-2;
+}
+
+.text {
+    @apply block text-xs text-gray-500 p-1;
+
+    &.error {
+        @apply text-red-500;
+    }
+}
+
+.input {
+    @apply appearance-none block w-full text-sm border border-gray-300 bg-gray-100 rounded py-2 px-2;
+
+    &:focus {
+        @apply bg-white outline-none shadow-lg;
+    }
+}
+
+// .input-with-icon {
+//     @apply appearance-none block w-full text-sm border border-gray-300 bg-gray-100 rounded py-2 px-2;
+
+//     svg {
+//     }
+// }
+
+.checkbox-group {
+    @apply inline-flex items-center text-sm;
+
+    input {
+        @apply text-primary;
+
+        &:focus {
+            @apply outline-none shadow-none;
+        }
+    }
+    span {
+        @apply text-xs ml-2 text-gray-500;
+    }
+}
