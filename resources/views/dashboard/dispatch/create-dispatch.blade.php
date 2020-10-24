@@ -15,17 +15,17 @@
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid gap-6">
                             <div>
-                                <label for="company_website" class="block text-sm font-medium leading-5 text-gray-700">
+                                <label for="company_website" class="block text-sm font-medium leading-5 text-gray-700  @error('reference_number') text-red-500 @enderror">
                                     Reference Number
                                 </label>
-                                <input id="company_website" class="form-input flex-1 block w-full rounded transition duration-150 ease-in-out sm:text-sm sm:leading-5 mt-1" placeholder="9896636" wire:model.lazy="reference_number">
-                                <span class="text">This is the reference number, order number, or RID that can be found on your FirstFleet&trade; Mobile App. Alternatively, you can place any kind of reference number here that you would like. This number helps you keep track of this specific dispatch.</span>
+                                <input id="company_website" class="form-input flex-1 block w-full rounded transition duration-150 ease-in-out sm:text-sm sm:leading-5 mt-1 @error('reference_number') border-red-500 @enderror" placeholder="9896636" wire:model.lazy="reference_number">
+                                <span class="text">This is the reference number, order number, or RID that can be found on your FirstFleet&trade; Mobile App. Alternatively, you can place any kind of reference number here that you would like. This number helps you keep track of this specific dispatch. <strong>This must be unique as it acts as the site-wide identifier.</strong></span>
                             </div>
                             <div>
-                                <label for="company_website" class="block text-sm font-medium leading-5 text-gray-700">
+                                <label for="company_website" class="block text-sm font-medium leading-5 text-gray-700 @error('estimated_miles') text-red-500 @enderror">
                                     Estimated Miles
                                 </label>
-                                <input id="company_website" class="form-input flex-1 block w-full rounded transition duration-150 ease-in-out sm:text-sm sm:leading-5 mt-1" placeholder="127" wire:model.lazy="estimated_miles">
+                                <input type="tel" id="company_website" class="form-input flex-1 block w-full rounded transition duration-150 ease-in-out sm:text-sm sm:leading-5 mt-1 @error('estimated_miles') border-red-500 @enderror" placeholder="127" wire:model.lazy="estimated_miles">
                                 <p class="text">The estimated distance in miles you drive thoughout your entire trip from the time you start until the time you park at the end of your shift. FirstFleet&trade; has estimated this distance and it can be found in the FirstFleet&trade; Mobile App.</p>
                             </div>
                             <div>
@@ -173,5 +173,4 @@
             </div>
         </div>
     </div>
-
 </div>

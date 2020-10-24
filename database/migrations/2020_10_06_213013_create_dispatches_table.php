@@ -17,7 +17,7 @@ class CreateDispatchesTable extends Migration
             $table->id();
             $table->string('reference_number');
             $table->integer('estimated_miles');
-            $table->date('starting_date');
+            $table->date('dispatch_date');
             $table->foreignId('status_id');
             $table->foreignId('user_id');
             $table->timestamps();

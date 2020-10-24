@@ -10,7 +10,7 @@ class Dispatch extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['reference_number', 'estimated_miles', 'starting_date', 'status_id', 'user_id'];
+    protected $fillable = ['reference_number', 'estimated_miles', 'dispatch_date', 'status_id', 'user_id'];
 
     public $grossPay = 0;
 

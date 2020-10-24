@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\Dispatch\CreateDispatch;
+use App\Http\Controllers\Dashboard\Dispatch\ViewDispatch;
 use App\Http\Controllers\Dashboard\Pages\Index as DashboardIndex;
 use App\Http\Controllers\Dispatch\PagesController as DispatchPagesController;
 use App\Http\Controllers\Setup\PagesController as SetupPagesController;
@@ -38,8 +39,8 @@ Route::middleware(['auth', 'verified', 'setup'])->group(function () {
     // Dispatch
     Route::prefix('dispatch')->name('dispatch.')->group(function () {
         Route::get('/create', CreateDispatch::class)->name('create');
+        Route::get('/{ref}', ViewDispatch::class)->name('view');
 
-        Route::get('/{ref}', [DispatchPagesController::class, 'view']);
         Route::get('/{ref}/edit', [DispatchPagesController::class, 'edit']);
         Route::get('/{ref}/{stop}', [DispatchPagesController::class, 'viewStop']);
     });

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Dashboard\Dispatch;
 
+use App\Models\Dispatch;
+use App\Models\DispatchStop;
 use App\Models\Warehouse;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -25,7 +27,7 @@ class CreateDispatch extends Component
     public $validator;
 
     public $rules = [
-        'reference_number' => 'required|alpha_num|unique:dispatches,reference_number',
+        'reference_number' => 'required|alpha_dash|unique:dispatches,reference_number',
         'estimated_miles' => 'required|numeric',
         'dispatch_date' => 'required|date',
         'stops.*' => 'required|array',
@@ -33,8 +35,11 @@ class CreateDispatch extends Component
     ];
 
     protected $messages = [
+        'reference_number.alpha_dash' => 'The reference number may only contain letters, numbers, dashes and underscores. (no spaces)',
+        'reference_number.unique' => 'This reference number is already in use. Please choose another one.',
+        'estimated_miles.numeric' => 'Estimated miles must be an integer (number).',
         'stops.*.warehouse.required' => 'You must select a warehouse or delete the stop.',
-        'stops.*.warehouse.distinct' => 'These stops are duplicate.',
+        'stops.*.warehouse.distinct' => 'You can not have duplicate stops.',
     ];
 
     public function mount()
@@ -58,9 +63,7 @@ class CreateDispatch extends Component
 
     public function updated($field, $newValue)
     {
-
         $this->validateOnly($field);
-
     }
 
     public function addStop()
@@ -77,28 +80,44 @@ class CreateDispatch extends Component
         } else {
             $this->dispatchBrowserEvent('alert', ['type' => 'error', 'text' => 'You need to have at least one stop.']);
         }
+
+        $this->dispatchBrowserEvent('alert', ['type' => 'info', 'text' => 'Deleted <strong>Stop #' . $index . '</strong>', 'time' => 2000]);
     }
 
     public function submit()
     {
-
-        // $this->dispatchBrowserEvent('alert', ['type' => 'success', 'text' => 'Redirecting...', 'title' => 'Dispatch created successfully!']);
         $this->validate();
+
+        $dispatch = Dispatch::create([
+            'reference_number' => $this->reference_number,
+            'estimated_miles' => $this->estimated_miles,
+            'dispatch_date' => $this->dispatch_date,
+            'status_id' => 0,
+            'user_id' => Auth::user()->id,
+        ]);
+
+        foreach ($this->stops as $stop) {
+            $stop = DispatchStop::create([
+                'dispatch_id' => $dispatch->id,
+                'warehouse_id' => $stop['warehouse'],
+            ]);
+        }
+
+        $this->dispatchBrowserEvent('alert', ['type' => 'success', 'text' => 'Redirecting...', 'title' => 'Dispatch created successfully!']);
 
     }
 
-    public function hydrate()
+    public function dehydrate()
     {
-        dd('test');
         $errors = $this->getErrorBag();
-        dd('asdf');
 
         if (count($errors) > 0) {
-            dd($errors);
-            foreach ($errors as $error) {
-                // $this->dispatchBrowserEvent('alert', ['type' => 'success', 'text' => 'Redirecting...', 'title' => 'Dispatch created successfully!']);
+            foreach ($errors->all() as $error) {
+                $this->dispatchBrowserEvent('alert', ['type' => 'error', 'text' => $error, 'title' => 'Uh oh..']);
             }
         }
+
+        $this->resetErrorBag();
 
     }
 }
