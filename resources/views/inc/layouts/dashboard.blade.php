@@ -6,15 +6,15 @@
 {{-- Flex Container --}}
 <div class="flex overflow-hidden min-h-screen relative" x-data="{ sidebar: false }">
     {{-- Sidebar --}}
-    <div class="lg:flex border-r" x-show="sidebar">
-        <div class="bg-white h-full w-64 p-4">
+    <div class="lg:flex border-r" x-show="sidebar" style="display: none">
+        <div class="bg-gray-800 text-gray-200 h-full w-64 p-4">
             {{-- Logo --}}
-            <div class="text-xl font-bold text-center">
+            <div class="text-white text-xl font-bold text-center">
                 {{ config('app.name') }}
             </div>
 
             <div class="relative mt-4" x-data="{ userPanelOpen: false }">
-                <button type="button" class="group w-full flex items-center text-left rounded border border-white p-2 hover:bg-gray-100 hover:border-gray-300 focus:border-gray-200 focus:bg-gray-200 focus:outline-none" @click="userPanelOpen = true">
+                <button type="button" class="group w-full flex items-center text-left rounded p-2 hover:bg-gray-700 focus:bg-gray-200 focus:outline-none" @click="userPanelOpen = true">
                     {{-- Profile Photo --}}
                     <div class="w-8 h-8 rounded flex-shrink-0">
                         <img src="https://ui-avatars.com/api/?name={{ $user->first_name }}+{{ $user->last_name }}&background=5a67d8&color=fff" alt="" class="rounded-full">
@@ -22,7 +22,7 @@
 
                     {{-- Name --}}
                     <div class="w-full px-3 overflow-hidden leading-4">
-                        <div class="font-semibold text-sm">
+                        <div class="font-semibold text-sm group-focus:text-gray-800">
                             {{ $user->fullName() }}
                         </div>
                         <div class="italic text-gray-500 group-focus:text-gray-600 text-xs truncate">
@@ -36,18 +36,18 @@
                         </svg>
                     </div>
                 </button>
-                <div class="z-10 absolute right-0 left-0 mt-1 rounded-md shadow-lg" x-show="userPanelOpen" @click.away="userPanelOpen = false">
+                <div class="z-10 absolute right-0 left-0 mt-1 rounded-md shadow-lg" x-show="userPanelOpen" @click.away="userPanelOpen = false" style="display: none">
                     <div class="rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         <div class="py-1">
                             <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Settings</a>
                             <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Notifications</a>
                         </div>
-                        <div class="border-t border-gray-100"></div>
+                        <div class="border-t border-gray-300"></div>
                         <div class="py-1">
                             <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Tutorial</a>
                             <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Support</a>
                         </div>
-                        <div class="border-t border-gray-100"></div>
+                        <div class="border-t border-gray-300"></div>
                         <div class="py-1">
                             <a href="#" class="block px-4 py-2 text-sm leading-5 text-red-500 hover:bg-gray-100 hover:text-red-600" role="menuitem">Logout</a>
                         </div>
@@ -58,11 +58,11 @@
             {{-- Search --}}
             <div class="mt-4 relative rounded-md shadow-sm">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg class="h-4 w-4 text-gray-400" x-description="Heroicon name: search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <svg class="h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
                     </svg>
                 </div>
-                <input id="email" class="input pl-8" placeholder="Search...">
+                <input id="email" class="input bg-gray-700 focus:bg-gray-100 focus:text-gray-700 border-gray-700 pl-10" placeholder="Search...">
             </div>
 
             {{-- Navigation --}}
@@ -72,7 +72,7 @@
                         <span class="truncate">
                             Dashboard
                         </span>
-                        <span class="ml-auto inline-block py-0.5 px-3 text-xs leading-4 rounded-full bg-white transition ease-in-out duration-150">
+                        <span class="ml-auto inline-block py-0.5 px-2 text-xs leading-4 rounded-full bg-red-300 transition ease-in-out duration-150">
                             5
                         </span>
                     </a>
@@ -117,7 +117,7 @@
     {{-- Main --}}
     <div class="flex-none lg:flex-auto  flex flex-col w-full overflow-hidden">
         <div class="relative z-10 flex-shrink-0 flex h-16 bg-white shadow">
-            <button x-on:click="sidebar = !sidebar" class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-600 md:hidden" aria-label="Open sidebar">
+            <button x-on:click="sidebar = !sidebar" class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-600 lg:hidden" aria-label="Open sidebar">
                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
                 </svg>

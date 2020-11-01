@@ -21,7 +21,18 @@ class Dispatch extends Model
 
     public function status()
     {
-        return $this->hasOne(DispatchStatus::class);
+        return $this->belongsTo(DispatchStatus::class, 'status_id');
+    }
+
+    public function stopsNeedData()
+    {
+        $stops = [];
+        foreach ($this->stops as $index => $stop) {
+            if (count($stop->items) == 0) {
+                $stops[] = $index;
+            }
+        }
+        return $stops;
     }
 
     public function grossPay()

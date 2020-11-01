@@ -16,6 +16,8 @@ class CreateDispatchStatusesTable extends Migration
         Schema::create('dispatch_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('bg_color');
+            $table->string('text_color');
             $table->timestamps();
         });
     }

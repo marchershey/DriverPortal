@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard\Dispatch;
 use App\Models\Dispatch;
 use App\Models\DispatchStop;
 use App\Models\Warehouse;
+use App\Rules\Dispatch\ReferenceNumber\UniqueReferenceNumber;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -26,13 +27,16 @@ class CreateDispatch extends Component
 
     public $validator;
 
-    public $rules = [
-        'reference_number' => 'required|alpha_dash|unique:dispatches,reference_number',
-        'estimated_miles' => 'required|numeric',
-        'dispatch_date' => 'required|date',
-        'stops.*' => 'required|array',
-        'stops.*.warehouse' => 'required|distinct|exists:warehouses,id',
-    ];
+    protected function rules()
+    {
+        return [
+            'reference_number' => ['required', 'alpha_dash', new UniqueReferenceNumber],
+            'estimated_miles' => 'required|numeric',
+            'dispatch_date' => 'required|date',
+            'stops.*' => 'required|array',
+            'stops.*.warehouse' => 'required|distinct|exists:warehouses,id',
+        ];
+    }
 
     protected $messages = [
         'reference_number.alpha_dash' => 'The reference number may only contain letters, numbers, dashes and underscores. (no spaces)',
@@ -58,7 +62,7 @@ class CreateDispatch extends Component
 
     public function render()
     {
-        return view('dashboard.dispatch.create-dispatch')->extends('inc.layouts.dashboard', ['user' => $this->user, 'pageTitle' => $this->pageTitle])->section('dashboard-content');
+        return view('dashboard.dispatch.create')->extends('inc.layouts.dashboard', ['user' => $this->user, 'pageTitle' => $this->pageTitle])->section('dashboard-content');
     }
 
     public function updated($field, $newValue)
@@ -92,7 +96,7 @@ class CreateDispatch extends Component
             'reference_number' => $this->reference_number,
             'estimated_miles' => $this->estimated_miles,
             'dispatch_date' => $this->dispatch_date,
-            'status_id' => 0,
+            'status_id' => 1,
             'user_id' => Auth::user()->id,
         ]);
 
@@ -103,7 +107,7 @@ class CreateDispatch extends Component
             ]);
         }
 
-        $this->dispatchBrowserEvent('alert', ['type' => 'success', 'text' => 'Redirecting...', 'title' => 'Dispatch created successfully!']);
+        return redirect('/dashboard/dispatch/' . $dispatch->id);
 
     }
 

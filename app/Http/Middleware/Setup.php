@@ -18,7 +18,7 @@ class Setup
     public function handle(Request $request, Closure $next)
     {
         if (Auth::user()->setup_completed == 0) {
-            return redirect()->route('setup');
+            return redirect()->route('setup.index');
         }
 
         return $next($request);

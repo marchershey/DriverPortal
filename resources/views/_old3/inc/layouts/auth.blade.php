@@ -1,6 +1,6 @@
 @extends('inc.layouts.app')
 
-@section('content')
+@section('body')
 <div id="" class="mt-16 md:mt-0 md:flex md:items-center md:justify-center md:min-h-screen max-w-xs mx-auto">
     <div class="w-full">
         <h1 class="heading text-center">{{config('app.name')}}</h1>
@@ -8,8 +8,7 @@
             @yield('heading-subtext')
         </h2>
         <div class="box shadow-lg">
-            @include('inc.alerts')
-            @yield('auth-content')
+            @yield('auth-body')
         </div>
 
         <div class="grid">

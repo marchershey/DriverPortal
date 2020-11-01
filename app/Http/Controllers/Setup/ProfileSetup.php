@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Setup;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class Profile extends Component
+class ProfileSetup extends Component
 {
+    public $user;
+    public $pageTitle;
+
     public $first_name;
     public $last_name;
     public $hire_date;
@@ -20,11 +23,11 @@ class Profile extends Component
     protected $messages = [
         'first_name.required' => 'Your first name is required.',
         'first_name.string' => 'Invalid first name.',
-        'first_name.alpha' => 'Your first name can only contain A-Z characters.',
+        // 'first_name.alpha_dash' => 'Your first name can only contain A-Z characters.',
         'first_name.max' => 'Your first name is too long.',
         'last_name.required' => 'Your last name is required.',
         'last_name.string' => 'Invalid last name.',
-        'last_name.alpha' => 'Your last name can only contain A-Z characters.',
+        // 'last_name.alpha_dash' => 'Your last name can only contain A-Z characters.',
         'last_name.max' => 'Your last name is too long.',
     ];
 
@@ -35,7 +38,9 @@ class Profile extends Component
 
     public function render()
     {
-        return view('frontend.setup.profile.form');
+        $this->user = Auth::user();
+        $this->pageTitle = 'Profile Setup';
+        return view('frontend.setup.profile')->extends('inc.layouts.auth', ['user' => $this->user, 'pageTitle' => $this->pageTitle])->section('auth-content');
     }
 
     public function updated($field, $newValue)
@@ -55,6 +60,20 @@ class Profile extends Component
         $user->save();
 
         return redirect()->route('dashboard.index');
+
+    }
+
+    public function dehydrate()
+    {
+        $errors = $this->getErrorBag();
+
+        if (count($errors) > 0) {
+            foreach ($errors->all() as $error) {
+                $this->dispatchBrowserEvent('alert', ['type' => 'error', 'text' => $error, 'title' => 'Uh oh..']);
+            }
+        }
+
+        $this->resetErrorBag();
 
     }
 }

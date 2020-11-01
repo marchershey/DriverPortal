@@ -98,7 +98,7 @@
                 <div class="rounded-md bg-white shadow-xs">
                     <div class="py-1 text-xs text-gray-600" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         <a href="#" class="block px-4 py-2 text-xs leading-5 hover:bg-gray-100" role="menuitem">View All Dispatches</a>
-                        <a href="{{ route('dispatch.create') }}" class="block px-4 py-2 text-xs leading-5 hover:bg-gray-100" role="menuitem">Create New Dispatch</a>
+                        <a href="{{ route('dashboard.dispatch.create') }}" class="block px-4 py-2 text-xs leading-5 hover:bg-gray-100" role="menuitem">Create New Dispatch</a>
                         <div class="border-t"></div>
                         <a href="#" class="block px-4 py-2 text-xs leading-5 hover:bg-gray-100" role="menuitem">Settings </a>
                     </div>
@@ -108,12 +108,15 @@
     </div>
     <div class="bg-white shadow overflow-hidden rounded-lg rounded-t-none">
         <ul>
-            @foreach($user->dispatches as $dispatch)
+            @if(count($user->dispatches->where('deleted', 0)) > 0)
+
+            @foreach($user->dispatches->sortByDesc('dispatch_date')->where('deleted', 0) as $dispatch)
             <li v-for="item in items" class="border-b last:border-b-0">
-                <a href="#" class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
+                <a href="/dashboard/dispatch/{{$dispatch->id}}" class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                     <div class="px-4 py-4 sm:px-6">
                         <div class="flex items-center justify-between">
-                            <div class="text-lg leading-5 font-semibold text-primary truncate">
+                            <div class="flex items-center text-lg leading-5 font-semibold text-primary truncate py-1">
+                                <div class="w-2 h-2 rounded-full {{$dispatch->status->bg_color}} mr-2"></div>
                                 #{{$dispatch->reference_number}}
                             </div>
                             <div class="ml-2 flex-shrink-0 flex">
@@ -144,7 +147,7 @@
                                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                                 </svg>
                                 <span class="ml-2">
-                                    <time datetime="2020-01-07">January 7, 2020</time>
+                                    <time datetime="{{$dispatch->dispatch_date}}">{{ \Carbon\Carbon::parse($dispatch->dispatch_date)->isoFormat('MMMM Do, YYYY') }}</time>
                                 </span>
                             </div>
                         </div>
@@ -152,6 +155,22 @@
                 </a>
             </li>
             @endforeach
+
+            @else
+            <li class="">
+                <div class="p-4 sm:px-6 text-center">
+                    <div class="mb-8 text-gray-600">
+                        <h1 class="text-xl font-semibold mb-3">Let's get started!</h1>
+                        <p class="text-gray-500">All of your dispatches will be here, after you create your first one.</p>
+                    </div>
+                    <div class="mb-4">
+                        <a href="{{route('dashboard.dispatch.create')}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Create a new dispatch
+                        </a>
+                    </div>
+                </div>
+            </li>
+            @endif
         </ul>
     </div>
 

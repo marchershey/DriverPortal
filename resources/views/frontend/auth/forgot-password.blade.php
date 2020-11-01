@@ -8,8 +8,6 @@
 <form action="{{route('password.email')}}" method="POST" class="form">
     @csrf
 
-    @include('inc.alerts.simple')
-
     <div class="group">
         <label for="email" class="label">
             Email Address

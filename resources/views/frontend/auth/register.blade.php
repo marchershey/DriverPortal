@@ -6,11 +6,15 @@
 Create your new account or <a href="{{route('login')}}" class="link">sign in</a> instead.
 @endsection
 
-@section('auth-content')
+@section('auth-body')
 <form action="{{route('register')}}" method="POST" class="form">
     @csrf
 
-    @include('inc.alerts.simple')
+    @if(count($errors) > 0 )
+    <div class="text-center text-xs font-semibold p-2 rounded --  bg-red-100 text-red-500">
+        {!!$errors->first()!!}
+    </div>
+    @endif
 
     <div class="group">
         <label for="email" class="label">

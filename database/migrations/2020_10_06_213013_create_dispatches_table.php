@@ -20,6 +20,7 @@ class CreateDispatchesTable extends Migration
             $table->date('dispatch_date');
             $table->foreignId('status_id');
             $table->foreignId('user_id');
+            $table->integer('deleted')->default(0);
             $table->timestamps();
         });
     }
