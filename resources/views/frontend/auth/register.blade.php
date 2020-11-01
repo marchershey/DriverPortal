@@ -6,7 +6,7 @@
 Create your new account or <a href="{{route('login')}}" class="link">sign in</a> instead.
 @endsection
 
-@section('auth-body')
+@section('auth-content')
 <form action="{{route('register')}}" method="POST" class="form">
     @csrf
 
