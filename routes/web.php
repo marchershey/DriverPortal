@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\Dashboard\Dispatch\CreateDispatch;
-use App\Http\Controllers\Dashboard\Dispatch\ViewDispatch;
-use App\Http\Controllers\Dashboard\Pages\Index as DashboardIndex;
-use App\Http\Controllers\Dispatch\PagesController as DispatchPagesController;
-use App\Http\Controllers\Setup\ProfileSetup;
+use App\Http\Controllers\Dashboard\Dispatch\Create as DashboardDispatchCreate;
+use App\Http\Controllers\Dashboard\Dispatch\View as DashboardDispatchView;
+use App\Http\Controllers\Dashboard\Index as DashboardIndex;
+use App\Http\Controllers\User\Account as UserAccount;
+use App\Http\Controllers\User\Notifications as UserNotifications;
+use App\Http\Controllers\User\Password as UserPassword;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,43 +20,54 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+// Index
 Route::get('/', function () {
-    return view('frontend.landing');
+    return view('web.index.frontpage');
 });
 
-Route::prefix('/setup')->middleware('auth')->name('setup.')->group(function () {
-    Route::redirect('/', '/setup/profile')->name('index');
-    Route::get('/profile', ProfileSetup::class)->name('profile');
-});
-
-// Middleware: Auth & Verified
-Route::middleware(['auth', 'verified', 'setup'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     // Dashboard
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/', DashboardIndex::class)->name('index');
 
         // Dispatch
         Route::prefix('dispatch')->name('dispatch.')->group(function () {
-            Route::get('/create', CreateDispatch::class)->name('create');
-            Route::get('/{id}', ViewDispatch::class)->name('view');
+            Route::get('/', DashboardDispatchCreate::class)->name('create');
+            Route::get('/{id}', DashboardDispatchView::class)->name('view');
+            // Route::get('/{id}', ViewDispatch::class)->name('view');
 
-            Route::get('/{ref}/edit', [DispatchPagesController::class, 'edit']);
-            Route::get('/{ref}/{stop}', [DispatchPagesController::class, 'viewStop']);
+            // Route::get('/{ref}/edit', [DispatchPagesController::class, 'edit']);
+            // Route::get('/{ref}/{stop}', [DispatchPagesController::class, 'viewStop']);
         });
     });
+
+    // User Account
+    Route::prefix('/user')->name('user.')->group(function () {
+        Route::get('/account', UserAccount::class)->name('account');
+        Route::get('/password', UserPassword::class)->name('password');
+        Route::get('/notifications', UserNotifications::class)->name('notifications');
+    });
+
+    Route::middleware('admin')->name('admin.')->group(function () {
+        Route::get('/admin', function () {
+            return 'success';
+        });
+    });
+
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/logout', function () {
-    Auth::logout();
-    return redirect('/login');
-});
+// Route::get('/logout', function () {
+//     Auth::logout();
+//     return redirect('/login');
+// });
 
 Route::get('/reset', function () {
     Artisan::call('route:clear');
     Artisan::call('config:cache');
     Artisan::call('cache:clear');
     Artisan::call('view:clear');
+    Artisan::call('optimize:clear');
     return redirect('/');
 });

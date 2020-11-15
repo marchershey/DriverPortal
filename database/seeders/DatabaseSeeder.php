@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Dispatch;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,10 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(CreateAdmin::class);
-        $this->call(PopulateWarehouses::class);
-        $this->call(PopulateBillableItems::class);
-        $this->call(PopulateRates::class);
-        $this->call(PopulateDispatchStatuses::class);
+        $this->call([
+            MakeMarc::class,
+            DispatchStatusSeeder::class,
+            WarehouseSeeder::class,
+        ]);
+
+        Dispatch::factory(30)->create();
     }
 }

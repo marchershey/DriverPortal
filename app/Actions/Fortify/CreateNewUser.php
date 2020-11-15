@@ -5,6 +5,7 @@ namespace App\Actions\Fortify;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
@@ -20,17 +21,22 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input)
     {
         Validator::make($input, [
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique(User::class),
+            ],
             'password' => $this->passwordRules(),
-        ], [
-            'email.required' => 'Your email address is required.',
-            'email.string' => 'Your email address is invalid.',
-            'email.email' => 'Your email address is invalid.',
-            'email.max' => 'Your email address is too long. It must be less than 255 characters.',
-            'email.unique' => 'That email is already registered. Try another email address or <a href="./login" class="font-bold">sign in</a> instead.',
+            'agree' => ['required'],
         ])->validate();
 
         return User::create([
+            'first_name' => ucfirst($input['first_name']),
+            'last_name' => ucfirst($input['last_name']),
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);

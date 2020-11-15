@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "~flatpickr/dist/flatpickr.css";
+
+.scroll-x {
+    scroll-behavior: smooth;
+}
+
+.no-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+    &::-webkit-scrollbar {
+        width: 0px;
+        background: transparent; /* Chrome/Safari/Webkit */
+    }
+}
+
+.full-screen {
+    height: 100vh;
+    max-height: 100vh;
+    min-height: 100vh;
+
+    /* mobile viewport bug fix */
+    height: -webkit-fill-available;
+    max-height: -webkit-fill-available;
+    min-height: -webkit-fill-available;
+}
+
+html {
+    height: -webkit-fill-available;
+}

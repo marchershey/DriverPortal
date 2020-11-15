@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -18,10 +17,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname',
-        'lastname',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'hire_date',
     ];
 
     /**
@@ -43,27 +43,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function fullName()
+    public function returnDashboardStats()
     {
-        return Auth::user()->first_name . ' ' . Auth::user()->last_name;
-    }
-
-    public function monthsEmployed()
-    {
-
-        $hire_date = Carbon::createFromFormat('Y-m-d', $this->hire_date);
-        $today = Carbon::now();
-
-        return $today->diffInMonths($hire_date);
-    }
-
-    public function rates()
-    {
-        return Rates::where('months', '>=', $this->monthsEmployed())->first();
-    }
-
-    public function dispatches()
-    {
-        return $this->hasMany(Dispatch::class);
+        return collect([
+            [
+                'name' => 'This Week',
+                'amount' => 1.00,
+            ],
+            [
+                'name' => 'Last Week',
+                'amount' => 1.00,
+            ],
+            [
+                'name' => 'This Month',
+                'amount' => 1.00,
+            ],
+            [
+                'name' => 'This Year',
+                'amount' => 102369.00,
+            ],
+        ]);
     }
 }

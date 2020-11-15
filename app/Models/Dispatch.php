@@ -4,53 +4,38 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Dispatch extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = ['reference_number', 'estimated_miles', 'dispatch_date', 'status_id', 'user_id'];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'reference_number',
+        'miles',
+        'date',
+        'status_id',
+        'user_id',
 
-    public $grossPay = 0;
-
-    public function stops()
-    {
-        return $this->hasMany(DispatchStop::class);
-    }
+    ];
 
     public function status()
     {
-        return $this->belongsTo(DispatchStatus::class, 'status_id');
+        return $this->belongsTo(DispatchStatus::class);
     }
 
-    public function stopsNeedData()
+    public function stops()
     {
-        $stops = [];
-        foreach ($this->stops as $index => $stop) {
-            if (count($stop->items) == 0) {
-                $stops[] = $index;
-            }
-        }
-        return $stops;
+        return $this->belongsToMany(Warehouse::class, 'dispatch_stops');
     }
 
-    public function grossPay()
+    public function returnDispatches()
     {
-        // mileage
-        $this->grossPay = $this->grossPay + ($this->estimated_miles * Auth::user()->rates()->mileage);
-        // stop pay
-        $this->grossPay = $this->grossPay + (($this->stops()->count() - 1) * Auth::user()->rates()->stop_pay);
-
-        $rates = Auth::user()->rates();
-
-        foreach ($this->stops as $stop) {
-            foreach ($stop->items as $item) {
-                $this->grossPay = $this->grossPay + ($rates[DispatchBillableItem::find($item->billable_item_id)->rate_code] * $item->quantity);
-            }
-        }
-
-        return $this->grossPay;
-
+        return $this->all();
     }
 }

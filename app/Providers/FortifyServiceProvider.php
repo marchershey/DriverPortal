@@ -34,23 +34,23 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         Fortify::loginView(function () {
-            return view('frontend.auth.login');
+            return view('web.auth.login');
         });
 
         Fortify::registerView(function () {
-            return view('frontend.auth.register');
+            return view('web.auth.register');
         });
 
         Fortify::requestPasswordResetLinkView(function () {
-            return view('frontend.auth.forgot-password');
+            return view('web.auth.password.send');
         });
 
         Fortify::resetPasswordView(function ($request) {
-            return view('frontend.auth.reset-password', ['request' => $request]);
+            return view('web.auth.password.reset', ['request' => $request]);
         });
 
         Fortify::verifyEmailView(function () {
-            return view('frontend.auth.verify-email');
+            return view('web.auth.verify');
         });
     }
 }
