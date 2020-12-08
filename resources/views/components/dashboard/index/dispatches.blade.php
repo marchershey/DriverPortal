@@ -1,4 +1,4 @@
-<div>
+<div class="space-y-5">
     <div class="bg-white rounded-lg shadow overflow-hidden" wire:init="loadDispatches">
         <div class="p-4 sm:px-6 border-b border-gray-200 flex justify-between items-center">
             <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -6,7 +6,7 @@
             </h3>
             <div>
                 <span class="shadow-sm rounded-md">
-                    <a href="{{ route('dashboard.dispatch.create') }}" class="inline-flex items-center px-3 py-1 border border-transparent text-xs leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline-indigo focus:border-indigo-700 active:bg-indigo-700 transition duration-150 ease-in-out">
+                    <a href="{{ route('dashboard.dispatch.create') }}" class="inline-flex items-center px-3 py-1 border border-transparent text-xs leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-indigo focus:border-indigo-700 active:bg-indigo-700 transition duration-150 ease-in-out">
                         New Dispatch
                     </a>
                 </span>
@@ -14,7 +14,7 @@
         </div>
 
         <div class="">
-            <ul class="divide-y divide-gray-200 border-b border-gray-200">
+            <ul class="divide-y divide-gray-200">
                 @foreach($dispatches as $dispatch)
                 <li>
                     <a href="{{ route('dashboard.dispatch.view', $dispatch->id) }}" class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
@@ -36,13 +36,13 @@
                                 <div class="sm:flex">
                                     <div class="mt-2 flex items-center text-sm leading-5 text-gray-500 sm:mt-0">
                                         <!-- Heroicon name: location-marker -->
-                                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <svg class="self-start flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
                                         </svg>
                                         @if(count($dispatch->stops) > 0)
                                         <div class="flex flex-wrap gap-1" v-for="item in items">
                                             @foreach($dispatch->stops as $stop)
-                                            {{$stop->name}} <span class="last:hidden">-</span>
+                                            {{$stop->warehouse->name}} <span class="last:hidden">-</span>
                                             @endforeach
                                         </div>
                                         @else
@@ -70,7 +70,7 @@
             </ul>
         </div>
 
-        <div class="w-full" wire:loading wire:target="loadDispatches">
+        <div class="w-full" wire:loading>
             <ul class="divide-y divide-gray-200 border-b border-gray-200">
                 <li>
                     <a href="#" class="animate-pulse block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
@@ -106,7 +106,13 @@
                 </li>
             </ul>
         </div>
-
-
     </div>
+
+    @if($hasMore)
+    <div class="flex justify-center" wire:loading.remove>
+        <button type="button" class="inline-flex items-center px-3 py-1 text-xs leading-5 font-medium rounded-md text-indigo-600 bg-transparent hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring-indigo focus:border-indigo-700 active:bg-indigo-700 transition duration-150 ease-in-out" wire:click="loadMore">
+            Load More
+        </button>
+    </div>
+    @endif
 </div>

@@ -18,6 +18,7 @@ class CreateDispatchStopsTable extends Migration
             $table->unsignedBigInteger('dispatch_id');
             $table->unsignedBigInteger('warehouse_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -12,13 +12,13 @@
     <title>{{ config('app.name') }}</title>
     @endif
 
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}?{{ rand() }}">
     @livewireStyles
 
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/app.js') }}?{{ config('app.version') }}" defer></script>
 </head>
 
-<body class="antialiased h-auto">
+<body class="antialiased bg-gray-100 h-screen overflow-hidden">
     @yield('body')
 
     @stack('modals')

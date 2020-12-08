@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Dispatch;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,11 +16,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            MakeMarc::class,
+            // MakeMarc::class,
             DispatchStatusSeeder::class,
             WarehouseSeeder::class,
+            UserRatesSeeder::class,
+            BillingItemsSeeder::class,
         ]);
 
-        Dispatch::factory(30)->create();
+        User::factory(1)->create();
+        Dispatch::factory(15)->create();
     }
 }

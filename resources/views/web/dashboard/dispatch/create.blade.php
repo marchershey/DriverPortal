@@ -4,17 +4,17 @@
         <div class="grid sm:grid-cols-8 gap-6">
             <div class="col-span-4 sm:col-span-3">
                 <label for="reference_number" class="block text-sm font-medium leading-5 text-gray-700">Reference Number</label>
-                <input id="reference_number" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('reference_number')border-red-500 @enderror" placeholder="Reference Number" wire:model.lazy="reference_number">
+                <input id="reference_number" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('reference_number')border-red-500 @enderror" placeholder="Reference Number" wire:model.lazy="reference_number">
             </div>
 
             <div class="col-span-4 sm:col-span-3">
                 <label for="date" class="block text-sm font-medium leading-5 text-gray-700">Dispatch Date</label>
-                <input id="date" class="form-input mt-1 block w-full border datepicker border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('date')border-red-500 @enderror" placeholder="" value="{{date('YYYY-mm-d')}}" wire:model.lazy="date">
+                <input id="date" class="form-input mt-1 block w-full border datepicker border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('date')border-red-500 @enderror" placeholder="" value="{{date('YYYY-mm-d')}}" wire:model.lazy="date">
             </div>
 
             <div class="col-span-4 sm:col-span-2">
                 <label for="miles" class="block text-sm font-medium leading-5 text-gray-700">Estimated Miles</label>
-                <input type="number" max="999" id="miles" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('miles')border-red-500 @enderror" placeholder="Miles" wire:model.lazy="miles">
+                <input type="number" max="999" id="miles" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('miles')border-red-500 @enderror" placeholder="Miles" wire:model.lazy="miles">
             </div>
         </div>
 

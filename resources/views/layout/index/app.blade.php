@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="hidden md:flex">
-                <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:shadow-outline-gray focus:border-gray-700 active:bg-gray-700 transition duration-150 ease-in-out">
+                <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-gray focus:border-gray-700 active:bg-gray-700 transition duration-150 ease-in-out">
                     Dashboard
                 </a>
             </div>
@@ -45,7 +45,7 @@
         {{-- Mobile Naviation --}}
         <div class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden" x-show="open" style="display:none;">
             <div class="rounded-lg shadow-md">
-                <div class="rounded-lg bg-white shadow-xs overflow-hidden" role="menu" aria-orientation="vertical" aria-labelledby="main-menu">
+                <div class="rounded-lg bg-white ring-1 ring-black ring-opacity-5 overflow-hidden" role="menu" aria-orientation="vertical" aria-labelledby="main-menu">
                     <div class="px-5 pt-4 flex items-center justify-between">
                         <div>
                             <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-on-white.svg" alt="">

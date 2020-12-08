@@ -32,10 +32,10 @@
                     </label>
                     <div class="flex gap-5 mt-2">
                         <div class="rounded-md shadow-sm">
-                            <input name="first_name" id="first_name" type="text" required placeholder="First Name" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 capitalize">
+                            <input name="first_name" id="first_name" type="text" required placeholder="First Name" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 capitalize">
                         </div>
                         <div class="rounded-md shadow-sm">
-                            <input name="last_name" id="last_name" type="text" required placeholder="Last Name" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 capitalize">
+                            <input name="last_name" id="last_name" type="text" required placeholder="Last Name" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 capitalize">
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                         Email Address
                     </label>
                     <div class="mt-2 rounded-md shadow-sm">
-                        <input name="email" id="email" type="email" required placeholder="Email Address" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                        <input name="email" id="email" type="email" required placeholder="Email Address" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                     </div>
                 </div>
 
@@ -55,10 +55,10 @@
                     </label>
                     <div class="flex gap-5 mt-2">
                         <div class="rounded-md shadow-sm">
-                            <input name="password" id="password" type="password" required placeholder="Password" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                            <input name="password" id="password" type="password" required placeholder="Password" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                         </div>
                         <div class="rounded-md shadow-sm">
-                            <input name="password_confirmation" id="password_confirmation" type="password" required placeholder="Password again..." class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                            <input name="password_confirmation" id="password_confirmation" type="password" required placeholder="Password again..." class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
 
                 <div class="mt-6">
                     <span class="block w-full rounded-md shadow-sm">
-                        <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
+                        <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:ring-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
                             Create account
                         </button>
                     </span>

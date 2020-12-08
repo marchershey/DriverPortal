@@ -25,6 +25,10 @@ Route::get('/', function () {
     return view('web.index.frontpage');
 });
 
+Route::get('/test', function () {
+    return view('test');
+});
+
 Route::middleware(['auth'])->group(function () {
     // Dashboard
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
@@ -69,5 +73,5 @@ Route::get('/reset', function () {
     Artisan::call('cache:clear');
     Artisan::call('view:clear');
     Artisan::call('optimize:clear');
-    return redirect('/');
+    return redirect('/dashboard');
 });

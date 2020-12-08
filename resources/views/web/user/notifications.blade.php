@@ -17,7 +17,7 @@
                             Toggle all emails
                         </p>
                     </div>
-                    <span role="checkbox" tabindex="0" x-on:click="on = !on" @keydown.space.prevent="on = !on" :aria-checked="on.toString()" aria-checked="false" aria-labelledby="privacy-option-label-1" aria-describedby="privacy-option-description-1" x-data="{ on: false }" :class="{ 'bg-gray-200': !on, 'bg-indigo-500': on }" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline">
+                    <span role="checkbox" tabindex="0" x-on:click="on = !on" @keydown.space.prevent="on = !on" :aria-checked="on.toString()" aria-checked="false" aria-labelledby="privacy-option-label-1" aria-describedby="privacy-option-description-1" x-data="{ on: false }" :class="{ 'bg-gray-200': !on, 'bg-indigo-500': on }" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring">
                         <span aria-hidden="true" :class="{ 'translate-x-5': on, 'translate-x-0': !on }" class="translate-x-0 inline-block h-5 w-5 rounded-full bg-white shadow transform transition ease-in-out duration-200"></span>
                     </span>
                 </li>
@@ -30,7 +30,7 @@
                             Receive an email notification each time your account is logged in.
                         </p>
                     </div>
-                    <span role="checkbox" tabindex="0" x-on:click="on = !on" @keydown.space.prevent="on = !on" :aria-checked="on.toString()" aria-checked="false" aria-labelledby="privacy-option-label-2" aria-describedby="privacy-option-description-2" x-data="{ on: false }" :class="{ 'bg-gray-200': !on, 'bg-indigo-500': on }" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline">
+                    <span role="checkbox" tabindex="0" x-on:click="on = !on" @keydown.space.prevent="on = !on" :aria-checked="on.toString()" aria-checked="false" aria-labelledby="privacy-option-label-2" aria-describedby="privacy-option-description-2" x-data="{ on: false }" :class="{ 'bg-gray-200': !on, 'bg-indigo-500': on }" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring">
                         <span aria-hidden="true" :class="{ 'translate-x-5': on, 'translate-x-0': !on }" class="translate-x-0 inline-block h-5 w-5 rounded-full bg-white shadow transform transition ease-in-out duration-200"></span>
                     </span>
                 </li>
@@ -44,7 +44,7 @@
                             Receive an email notification each time your account is logged in.
                         </p>
                     </div>
-                    <span role="checkbox" tabindex="0" x-on:click="on = !on" @keydown.space.prevent="on = !on" :aria-checked="on.toString()" aria-checked="false" aria-labelledby="privacy-option-label-2" aria-describedby="privacy-option-description-2" x-data="{ on: false }" :class="{ 'bg-gray-200': !on, 'bg-indigo-500': on }" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline">
+                    <span role="checkbox" tabindex="0" x-on:click="on = !on" @keydown.space.prevent="on = !on" :aria-checked="on.toString()" aria-checked="false" aria-labelledby="privacy-option-label-2" aria-describedby="privacy-option-description-2" x-data="{ on: false }" :class="{ 'bg-gray-200': !on, 'bg-indigo-500': on }" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring">
                         <span aria-hidden="true" :class="{ 'translate-x-5': on, 'translate-x-0': !on }" class="translate-x-0 inline-block h-5 w-5 rounded-full bg-white shadow transform transition ease-in-out duration-200"></span>
                     </span>
                 </li>
@@ -58,7 +58,7 @@
                             Receive an email notification each time your account is logged in.
                         </p>
                     </div>
-                    <span role="checkbox" tabindex="0" x-on:click="on = !on" @keydown.space.prevent="on = !on" :aria-checked="on.toString()" aria-checked="false" aria-labelledby="privacy-option-label-2" aria-describedby="privacy-option-description-2" x-data="{ on: false }" :class="{ 'bg-gray-200': !on, 'bg-indigo-500': on }" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline">
+                    <span role="checkbox" tabindex="0" x-on:click="on = !on" @keydown.space.prevent="on = !on" :aria-checked="on.toString()" aria-checked="false" aria-labelledby="privacy-option-label-2" aria-describedby="privacy-option-description-2" x-data="{ on: false }" :class="{ 'bg-gray-200': !on, 'bg-indigo-500': on }" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring">
                         <span aria-hidden="true" :class="{ 'translate-x-5': on, 'translate-x-0': !on }" class="translate-x-0 inline-block h-5 w-5 rounded-full bg-white shadow transform transition ease-in-out duration-200"></span>
                     </span>
                 </li> --}}

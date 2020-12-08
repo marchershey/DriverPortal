@@ -16,7 +16,7 @@ class MakeMarc extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'first_name' => 'JOhn',
+            'first_name' => 'John',
             'last_name' => 'Smith',
             'email' => 'admin@admin.com',
             'password' => Hash::make('password'),

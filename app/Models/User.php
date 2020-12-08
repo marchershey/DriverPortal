@@ -43,6 +43,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function fullName()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function avatar()
+    {
+        return 'https://ui-avatars.com/api/?name=' . $this->first_name . '+' . $this->last_name . '.&background=5850ec&color=ffffff&font-size=0.4&size=64&length=2&bold=true&format=svg';
+    }
+
     public function returnDashboardStats()
     {
         return collect([

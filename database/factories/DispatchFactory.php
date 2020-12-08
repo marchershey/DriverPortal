@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Dispatch;
+use App\Models\DispatchStop;
 use App\Models\Warehouse;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DispatchFactory extends Factory
@@ -26,7 +28,8 @@ class DispatchFactory extends Factory
             //
         })->afterCreating(function (Dispatch $dispatch) {
             for ($x = 0; $x <= rand(0, 3); $x++) {
-                $dispatch->stops()->attach(Warehouse::inRandomOrder()->first());
+                $stop = new DispatchStop(['dispatch_id' => $dispatch->id, 'warehouse_id' => Warehouse::inRandomOrder()->first()->id]);
+                $dispatch->stops()->save($stop);
             }
         });
     }
@@ -41,8 +44,8 @@ class DispatchFactory extends Factory
         return [
             'reference_number' => '9' . $this->faker->numberBetween(700000, 999999),
             'miles' => $this->faker->numberBetween(50, 400),
-            'date' => $this->faker->date('Y-m-d'),
-            'status_id' => $this->faker->numberBetween(1, 2),
+            'date' => Carbon::parse($this->faker->dateTimeThisMonth()),
+            'status_id' => $this->faker->biasedNumberBetween(1, 2),
             'user_id' => 1,
         ];
     }

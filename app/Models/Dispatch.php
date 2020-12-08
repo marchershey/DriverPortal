@@ -21,7 +21,6 @@ class Dispatch extends Model
         'date',
         'status_id',
         'user_id',
-
     ];
 
     public function status()
@@ -31,8 +30,10 @@ class Dispatch extends Model
 
     public function stops()
     {
-        return $this->belongsToMany(Warehouse::class, 'dispatch_stops');
+        return $this->hasMany(DispatchStop::class);
     }
+
+    // ------
 
     public function returnDispatches()
     {
