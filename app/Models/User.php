@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -73,5 +74,11 @@ class User extends Authenticatable
                 'amount' => 102369.00,
             ],
         ]);
+    }
+
+    public function returnMonthsWorked()
+    {
+        $months = Carbon::parse($this->hire_date)->diffInMonths(date('Y-m-d'));
+        return $months;
     }
 }

@@ -36,12 +36,12 @@
                 <div class="" wire:loading.remove wire:target="loadStops">
                     @if($stops)
                     @foreach($stops as $index => $stop)
-                    <li class="relative pb-10" wire:click.prevent="viewStop({{$index}})" wire:key="stop.{{$stop->id}}">
-                        <div class="-ml-px absolute mt-0.5 top-4 left-5 w-0.5 h-full bg-indigo-400"></div>
+                    <li class="relative pb-5" wire:click.prevent="viewStop({{ $index }})" wire:key="stop.{{ $stop->id }}">
+                        <div class="-ml-px absolute mt-0.5 top-4 left-4 w-0.5 h-full bg-indigo-400"></div>
                         <a href="#" class="flex items-center space-x-4 group focus:outline-none">
                             <div class="h-10 flex items-center">
-                                <span class="relative z-10 w-10 h-10 flex items-center justify-center bg-white group-hover:bg-indigo-500 border-2 border-indigo-400 rounded-full group-hover:border-indigo-500 group-focus:border-indigo-500 transition ease-in-out duration-150">
-                                    <svg class="w-6 h-6 text-indigo-400 group-hover:text-white transition ease-in-out duration-150" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <span class="relative z-10 w-8 h-8 flex items-center justify-center bg-white group-hover:bg-indigo-500 border-2 border-indigo-400 rounded-full group-hover:border-indigo-500 group-focus:border-indigo-500 transition ease-in-out duration-150">
+                                    <svg class="w-4 h-4 text-indigo-400 group-hover:text-white transition ease-in-out duration-150" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
@@ -51,12 +51,12 @@
                                 <div class="">
                                     <h3 class="text-sm leading-4 font-semibold uppercase tracking-wide text-gray-500 group-hover:text-indigo-500 transition ease-in-out duration-150">{{ $stop->warehouse->name }}</h3>
                                     <div class="text-xs text-gray-400 truncate-2-lines">
-                                        What if I type a really long message here, will it overflow? What if I type a really long message here, will it overflow? What if I type a really long message here, will it overflow? What if I type a really long message here, will it overflow? What if I type a really long message here, will it overflow? What if I type a really long message here, will it overflow?
+                                        {{ $stop->comment }}
                                     </div>
                                 </div>
 
-                                <div class="">
-                                    <span class="text-green-400 font-semibold">$0.00</span>
+                                <div class="pl-6">
+                                    <span class="text-xl text-green-400 font-semibold">${{ number_format($stop->amount, 2) }}</span>
                                 </div>
                             </div>
                         </a>
@@ -66,7 +66,7 @@
                     <li class="relative">
                         <a href="#" class="relative flex items-center space-x-4 group focus:outline-none" wire:click="openAddStopModal()">
                             <div class="h-10 flex items-center">
-                                <span class="relative z-10 w-10 h-10 flex items-center justify-center bg-white group-hover:bg-indigo-500 border-2 border-indigo-400 rounded-full group-hover:border-indigo-500 group-focus:border-indigo-500 transition ease-in-out duration-150">
+                                <span class="relative z-10 w-8 h-8 flex items-center justify-center bg-white group-hover:bg-indigo-500 border-2 border-indigo-400 rounded-full group-hover:border-indigo-500 group-focus:border-indigo-500 transition ease-in-out duration-150">
                                     <svg class="w-5 h-5 text-indigo-400 group-hover:text-white transition ease-in-out duration-150" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                     </svg>
@@ -127,12 +127,12 @@
             <div class="flex flex-col overflow-hidden bg-white rounded w-full max-w-md max-h-full" x-on:click.away="$wire.hideViewStopModal()">
                 <div class="relative flex-shrink-0 flex items-start justify-between border-b border-gray-200 p-4">
                     <div class="absolute right-4 h-full">
-                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" x-on:click="$wire.hideViewStopModal()">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </div>
                     <h1 class="font-semibold text-lg text-center w-full">
-                        {{ $selectedStop->warehouse->name }}
+                        {{ $selectedStop->warehouse->name }} - {{ $selectedStop->id }}
                     </h1>
                 </div>
                 <div class="relative p-4 overflow-y-auto">
@@ -194,7 +194,7 @@
                     </div>
                 </div>
                 <div class="flex-shrink-0 flex items-center justify-between border-t border-gray-200 p-4">
-                    <button type="button" class="text-center px-2 py-2 border border-transparent text-xs leading-4 font-medium rounded text-red-500 focus:outline-none focus:shadow-none active:bg-gray-300 transition ease-in-out duration-150">
+                    <button wire:click="deleteStop()" type="button" class="text-center px-2 py-2 border border-transparent text-xs leading-4 font-medium rounded text-red-500 focus:outline-none focus:shadow-none active:bg-gray-300 transition ease-in-out duration-150">
                         Delete Stop
                     </button>
                     <button wire:click="saveBillingItems()" type="button" class="text-center px-2 py-2 border border-transparent text-xs leading-4 font-medium rounded text-white bg-indigo-500 hover:bg-indigo-400 focus:outline-none focus:shadow-none active:bg-gray-300 transition ease-in-out duration-150">
@@ -207,7 +207,7 @@
     @endif
 
     {{-- View Stop Modal --}}
-    @if($selectedStop == 'test')
+    {{-- @if($selectedStop == 'test')
     <div x-show="viewStopModal_old" wire:key="viewStopModal_old" class="fixed z-50 inset-0 overflow-hidden" style="display:none">
         <div class="flex items-end justify-center h-full px-4 py-20 text-center sm:block">
             <div class="fixed inset-0 transition-opacity">
@@ -219,67 +219,67 @@
             <div class="inline-block max-h-screen max-w-md align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle w-full sm:p-6 space-y-4" wire:key="viewStopModalBody" x-show.transition="viewStopModal" x-on:click.away="$wire.hideViewStopModal()">
                 <div class="w-full text-center">
                     <h1 class="font-semibold text-xl">{{ $selectedStop->warehouse->name }}</h1>
-                </div>
-                <div class="border-b"></div>
-                @include('layout.alerts')
-                <div class="space-y-4 overflow-y-auto">
-                    @if($selectedStopBillingItems)
-                    @foreach($selectedStopBillingItems as $index => $item)
-                    <div wire:key="billingitem.{{ $index }}" class="grid grid-cols-7 gap-4">
-                        <div class="col-span-4">
-                            <select wire:model="selectedStopBillingItems.{{ $index }}.id" name="item[]" type="text" class="form-select w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
-                                <option value="">Select an option...</option>
-                                @foreach($billingItems as $billingItem)
-                                <option value="{{ $billingItem->id }}">{{ $billingItem->id }} - {{ $billingItem->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-span-2 flex items-center justify-between gap-4">
-                            <input wire:model.defer="selectedStopBillingItems.{{ $index }}.quantity" name="quantity[]" type="number" class="form-input w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="#" onclick="this.select()">
-                        </div>
-                        <div class="flex items-center justify-center">
-                            <button wire:click="removeBillingItem({{ $index }})">
-                                <svg class="h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    @endforeach
-                    @endif
-                    <div class="w-full" wire:loading wire:target="addBillingItem">
-                        <div class="grid grid-cols-7 gap-4 animate-pulse">
-                            <div class="h-8 bg-gray-300 rounded col-span-4"></div>
-                            <div class="h-8 bg-gray-300 rounded col-span-2"></div>
-                            <div class="h-8 bg-gray-300 rounded"></div>
-                        </div>
-                    </div>
-                    <div class="flex justify-between">
-                        <button wire:click="addBillingItem" type="button" class="text-center px-2 py-2 border border-transparent text-xs leading-4 font-medium rounded text-gray-800 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:shadow-none active:bg-gray-300 transition ease-in-out duration-150">
-                            + Add Billing Item
-                        </button>
-                        <div class="flex items-center">
-                            <div class="flex items-center">
-                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" wire:loading>
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-b"></div>
-                <div class="flex justify-between">
-                    <button type="button" class="text-center px-2 py-2 border border-transparent text-xs leading-4 font-medium rounded text-white bg-red-500 hover:bg-red-400 focus:outline-none focus:shadow-none active:bg-gray-300 transition ease-in-out duration-150">
-                        Delete Stop
-                    </button>
-                    <button wire:click="hideViewStopModal()" type="button" class="text-center px-2 py-2 border border-transparent text-xs leading-4 font-medium rounded text-white bg-indigo-500 hover:bg-indigo-400 focus:outline-none focus:shadow-none active:bg-gray-300 transition ease-in-out duration-150">
-                        Save
-                    </button>
-                </div>
+</div>
+<div class="border-b"></div>
+@include('layout.alerts')
+<div class="space-y-4 overflow-y-auto">
+    @if($selectedStopBillingItems)
+    @foreach($selectedStopBillingItems as $index => $item)
+    <div wire:key="billingitem.{{ $index }}" class="grid grid-cols-7 gap-4">
+        <div class="col-span-4">
+            <select wire:model="selectedStopBillingItems.{{ $index }}.id" name="item[]" type="text" class="form-select w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                <option value="">Select an option...</option>
+                @foreach($billingItems as $billingItem)
+                <option value="{{ $billingItem->id }}">{{ $billingItem->id }} - {{ $billingItem->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-span-2 flex items-center justify-between gap-4">
+            <input wire:model.defer="selectedStopBillingItems.{{ $index }}.quantity" name="quantity[]" type="number" class="form-input w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="#" onclick="this.select()">
+        </div>
+        <div class="flex items-center justify-center">
+            <button wire:click="removeBillingItem({{ $index }})">
+                <svg class="h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    @endforeach
+    @endif
+    <div class="w-full" wire:loading wire:target="addBillingItem">
+        <div class="grid grid-cols-7 gap-4 animate-pulse">
+            <div class="h-8 bg-gray-300 rounded col-span-4"></div>
+            <div class="h-8 bg-gray-300 rounded col-span-2"></div>
+            <div class="h-8 bg-gray-300 rounded"></div>
+        </div>
+    </div>
+    <div class="flex justify-between">
+        <button wire:click="addBillingItem" type="button" class="text-center px-2 py-2 border border-transparent text-xs leading-4 font-medium rounded text-gray-800 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:shadow-none active:bg-gray-300 transition ease-in-out duration-150">
+            + Add Billing Item
+        </button>
+        <div class="flex items-center">
+            <div class="flex items-center">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" wire:loading>
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
             </div>
         </div>
     </div>
-    @endif
+</div>
+<div class="border-b"></div>
+<div class="flex justify-between">
+    <button type="button" class="text-center px-2 py-2 border border-transparent text-xs leading-4 font-medium rounded text-white bg-red-500 hover:bg-red-400 focus:outline-none focus:shadow-none active:bg-gray-300 transition ease-in-out duration-150">
+        Delete Stop
+    </button>
+    <button wire:click="hideViewStopModal()" type="button" class="text-center px-2 py-2 border border-transparent text-xs leading-4 font-medium rounded text-white bg-indigo-500 hover:bg-indigo-400 focus:outline-none focus:shadow-none active:bg-gray-300 transition ease-in-out duration-150">
+        Save
+    </button>
+</div>
+</div>
+</div>
+</div>
+@endif --}}
 
 </div>

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Components\Dashboard\Dispatch\View;
 use App\Models\BillingItem;
 use App\Models\Dispatch;
 use App\Models\DispatchStop;
+use App\Models\UserRates;
 use App\Models\Warehouse;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class StopsList extends Component
@@ -14,6 +16,7 @@ class StopsList extends Component
     public $stops;
     public $warehouses;
     public $billingItems;
+    public $rates;
 
     public $addStopModal = false;
     public $viewStopModal = false;
@@ -35,6 +38,7 @@ class StopsList extends Component
         $this->dispatch = $dispatch;
         $this->warehouses = Warehouse::all();
         $this->billingItems = BillingItem::all()->toArray();
+        $this->rates = UserRates::where('months', '>', Auth::user()->returnMonthsWorked())->first();
     }
 
     public function render()
@@ -85,6 +89,14 @@ class StopsList extends Component
         $this->loadStops();
     }
 
+    public function deleteStop()
+    {
+        $this->selectedStop->delete();
+        $this->hideViewStopModal();
+        $this->dispatch->refresh();
+        $this->loadStops();
+    }
+
     /**
      * View Stop
      */
@@ -99,11 +111,6 @@ class StopsList extends Component
         $this->loadBillingItems();
         $this->openViewStopModal();
     }
-
-    // public function removeStop()
-    // {
-    //     $this->dispatch->
-    // }
 
     public function openViewStopModal()
     {
@@ -150,7 +157,22 @@ class StopsList extends Component
             ];
         }
         $this->selectedStop->billingItems()->sync($items);
-        $this->loadBillingItems();
+        $this->selectedStop->refresh();
+        $this->updateStopPay();
         $this->hideViewStopModal();
+    }
+
+    public function updateStopPay()
+    {
+        $total = 0;
+        foreach ($this->selectedStop->billingItems as $item) {
+            $rate_code = $item->rate_code;
+            $quantity = $item->pivot->quantity;
+            $total = $total + ($this->rates->$rate_code * $quantity);
+        }
+        $this->selectedStop->amount = $total;
+        $this->selectedStop->save();
+        $this->dispatch->refresh();
+        $this->loadStops();
     }
 }

@@ -35,6 +35,11 @@ class View extends Component
         return view('web.dashboard.dispatch.view')->extends('layout.dashboard.dispatch.page', ['page_title' => $this->title])->section('dispatch-body');
     }
 
+    public function updateStops()
+    {
+
+    }
+
     public function save($what)
     {
         switch ($what) {

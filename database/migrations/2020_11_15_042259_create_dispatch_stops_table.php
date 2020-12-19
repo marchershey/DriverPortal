@@ -17,6 +17,8 @@ class CreateDispatchStopsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('dispatch_id');
             $table->unsignedBigInteger('warehouse_id');
+            $table->decimal('amount', 15, 5)->default(0.00000);
+            $table->text('comment')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
